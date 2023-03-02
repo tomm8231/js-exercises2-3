@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <table class="table">
+      <thead>
+        <tr id="cars-table">
+          <th id="id-header">ID</th>
+          <th id="year-header">Year</th>
+          <th id="make-header">Make</th>
+          <th id="model-header">Model</th>
+          <th id="price-header">Price</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+
+    <form>
+      <!--Filter by price-->
+      <label for="price">Price: </label>
+      <input id="price" type="number" />
+      <input id="filter-price-btn" type="button" value="Price less than" />
+
+      <!--Filter by make-->
+      <label for="make">Make: </label>
+      <input id="make" type="text" />
+      <input id="filter-make-btn" type="button" value="Filter by make" />
+
+      <!--Clear-->
+      <label for="clear-btn">Clear: </label>
+      <input type="button" id="clear-btn" value="Clear" />
+    </form>
+
+    <script>
+      const cars = [
+        { id: 1, year: 1997, make: "Ford", model: "E350", price: 3000 },
+        { id: 2, year: 1999, make: "Chevy", model: "Venture", price: 4900 },
+        { id: 3, year: 2000, make: "Chevy", model: "Venture", price: 5000 },
+        {
+          id: 4,
+          year: 1996,
+          make: "Jeep",
+          model: "Grand Cherokee",
+          price: 4799,
+        },
+        { id: 5, year: 2005, make: "Volvo", model: "V70", price: 44799 },
+      ];
+
+      function fetchAllCars(cars) {
+        let carList = cars
+          .map(
+            (car) => `
+<tr>
+    <td>${car.id}</td>
+    <td>${car.year}</td>
+    <td>${car.make}</td>
+    <td>${car.model}</td>
+    <td>${car.price}</td>
+</tr>
+`
+          )
+          .join("\n");
+
+        document.querySelector("tbody").innerHTML = carList;
+      }
+
+      fetchAllCars(cars);
+
+      // Filter by price less than
+      document.querySelector("#filter-price-btn").onclick = (evt) => {
+        const price = document.querySelector("#price").value;
+        const filteredCars = cars.filter((car) => car.price < price);
+        fetchAllCars(filteredCars);
+      };
+
+      // Filter by make
+      document.querySelector("#filter-make-btn").onclick = (evt) => {
+        const make = document.querySelector("#make").value;
+        const filteredCars = cars.filter(
+          (car) => car.make.toLocaleLowerCase() == make.toLocaleLowerCase()
+        );
+        fetchAllCars(filteredCars);
+      };
+
+      //Clear input field and render table with all data
+      document.querySelector("#clear-btn").onclick = () => {
+        document.querySelector("#price").value = "";
+        document.querySelector("#make").value = "";
+        fetchAllCars(cars);
+      };
+
+      // Sort by price
+      let ascendingPrice = true;
+
+      document.querySelector("#price-header").onclick = () => {
+        let sortedCars;
+
+        if (ascendingPrice) {
+          sortedCars = cars.sort((a, b) => a.price - b.price);
+        } else {
+          sortedCars = cars.sort((a, b) => b.price - a.price);
+        }
+        ascendingPrice = !ascendingPrice;
+        fetchAllCars(sortedCars);
+      };
+
+      //Sort by make
+      let ascendingMake = true;
+
+      document.querySelector("#make-header").onclick = () => {
+        let sortedCars;
+
+        if (ascendingMake) {
+          sortedCars = cars.sort((a, b) =>
+            a.make.toLowerCase().localeCompare(b.make.toLowerCase())
+          );
+        } else {
+          sortedCars = cars.sort((a, b) => b.make.localeCompare(a.make));
+        }
+        ascendingMake = !ascendingMake;
+        fetchAllCars(sortedCars);
+      };
+
+      //Sort by model
+      let ascendingModel = true;
+
+      document.querySelector("#model-header").onclick = () => {
+        let sortedCars;
+
+        if (ascendingModel) {
+          sortedCars = cars.sort((a, b) =>
+            a.model.toLowerCase().localeCompare(b.model.toLowerCase())
+          );
+        } else {
+          sortedCars = cars.sort((a, b) =>
+            b.model.toLowerCase().localeCompare(a.model.toLowerCase())
+          );
+        }
+
+        ascendingModel = !ascendingModel;
+        fetchAllCars(sortedCars);
+      };
+
+      //Sort by year
+      let ascendingYear = true;
+
+      document.querySelector("#year-header").onclick = () => {
+        let sortedCars
+        if (ascendingYear) {
+            sortedCars = cars.sort((a,b) => a.year - b.year)
+        } else {
+            sortedCars = cars.sort((a,b) => b.year - a.year)
+        }
+
+        ascendingYear = !ascendingYear
+        fetchAllCars(sortedCars)
+      };
+
+      //Sort by id
+      let ascendingId = true
+
+      document.querySelector("#id-header").onclick = () => {
+        let sortedCars
+
+        if (ascendingId) {
+            sortedCars = cars.sort((a,b) => a.id - b.id)
+        } else {
+            sortedCars = cars.sort((a,b) => b.id - a.id)
+        }
+        
+        ascendingId = !ascendingId
+        fetchAllCars(sortedCars)
+      }
+
+    </script>
+  </body>
+</html>

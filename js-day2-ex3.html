@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+body {
+  background-color: #f7e9c5;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  background-color: #fff;
+  border: 5px solid #f0a500;
+  border-radius: 10px;
+  box-sizing: border-box;
+  margin: 20px auto;
+  padding: 20px;
+  width: 80%;
+  box-shadow: 5px 5px 10px #888888;
+}
+
+button {
+  background-color: #f0a500;
+  border: none;
+  border-radius: 3px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: #f27d00;
+  transform: scale(1.1);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  margin-top: 20px;
+}
+
+li {
+  background-color: #fff;
+  border: 1px solid #f0a500;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+li:hover {
+  background-color: #f0a500;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+input[type="text"] {
+  background-color: #fff;
+  border: 2px solid #f0a500;
+  border-radius: 3px;
+  font-size: 16px;
+  margin-bottom: 20px;
+  padding: 5px;
+  width: 100%;
+}
+
+form div {
+  display: flex;
+  align-items: center;
+}
+
+form span {
+  margin-right: 20px;
+  text-transform: uppercase;
+  color: #f0a500;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+form button {
+  margin-left: 20px;
+  transition: all 0.3s ease;
+}
+
+form button:hover {
+  background-color: #f27d00;
+  transform: scale(1.1);
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+#name-input {
+  animation: slideInLeft 1s ease;
+}
+
+form button {
+  animation: slideInRight 1s ease;
+}
+    </style>
+  </head>
+  <body>
+<div class="container" style="padding:1em; font-family:sans-serif">
+
+    <button id="initialize-btn">Load Data</button>
+    <ul id="ul1"></ul>
+
+    <form>
+      <div><input id="name-input" placeholder="Enter new name here" /></div> 
+      <div style="margin-top: 1em;"><span style="display: inline-block; width: 20em;">Manipulate the Array and re-render the UL</span>
+        <button id="btn-b1">Add Name</button>
+        <button id="btn-b2">Remove First</button>
+        <button id="btn-b3">Remove Last</button>
+      </div>
+
+    </form>
+</div>
+
+    <script>
+        const names = ["Lars", "Peter", "Jan", "Lise", "Janne"]
+
+        function makeList() {
+            const lis = names.map(n => `<li>${encode(n)}</li>`).join("\n")
+            document.querySelector("#ul1").innerHTML = lis
+        }
+
+        document.querySelector("#initialize-btn").onclick = ()=>makeList()
+    
+/****************************************************************************/
+/*        Strategy where we are manipulating individual DOM-Elements        */
+/****************************************************************************/
+
+document.querySelector("#btn-b1").onclick = (evt) => {
+    evt.preventDefault()
+    const name = document.querySelector("#name-input").value
+    names.push(encode(name))
+    makeList()
+}
+
+document.querySelector("#btn-b2").onclick = (evt) => {
+    evt.preventDefault()
+    names.shift()
+    makeList()
+}
+
+document.querySelector("#btn-b3").onclick = (evt) => {
+    evt.preventDefault()
+    names.pop()
+    makeList()
+}
+
+
+function encode(str) {
+    str = str.replace(/&/g, "&amp;");
+    str = str.replace(/>/g, "&gt;");
+    str = str.replace(/</g, "&lt;");
+    str = str.replace(/"/g, "&quot;");
+    str = str.replace(/'/g, "&#039;");
+    return str;
+}
+
+    </script>
+
+  </body>
+</html>

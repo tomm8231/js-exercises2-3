@@ -1,0 +1,25 @@
+<div id="1" style="width: 100px;margin: 1px;">&nbsp;</div>
+<div id="2" style="width: 100px;margin: 1px;">&nbsp;</div>
+<div id="3" style="width: 100px;margin: 1px;">&nbsp;</div>
+
+<script>
+    var style = document.querySelectorAll("div")
+    .forEach(element => {
+        element.style.backgroundColor = "red";
+    });
+
+</script>
+
+<button id="btn">Click me</button>
+
+<script>
+
+    const divs = document.querySelectorAll("div")
+
+    document.querySelector("#btn").onclick = () => {
+        divs[0].style.backgroundColor = "blue"
+        divs[1].style.backgroundColor = "white"
+        divs[2].style.backgroundColor = "yellow"
+    }
+
+</script>
