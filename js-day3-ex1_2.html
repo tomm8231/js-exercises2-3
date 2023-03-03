@@ -53,47 +53,7 @@
     </div>
 
     <script>
-        /*
-      const URL = "https://jsonplaceholder.typicode.com/users/";
-      document.querySelector("#btn-get-user").onclick = (evt) => {
-        fetchUser(evt);
-      };
 
-      document.querySelector("#btn-get-all").onclick = fetchAllUsers;
-
-      function fetchAllUsers() {
-        //alert("fix me")
-
-        fetch(URL)
-          .then((res) => res.json())
-          .then((data) => {
-            const size = data.length;
-            console.log("Alert build table here: " + size + " rows");
-          });
-      }
-
-      function fetchUser(evt) {
-        const id = document.querySelector("#input-id").value;
-        document.querySelector("#p-error").innerText = "";
-
-        fetch(URL + id)
-          .then((res) => {
-            if (!res.ok) {
-              return Promise.reject("User not found");
-            } 
-              return res.json();
-            
-          })
-          .then((data) => {
-            document.querySelector("#p-name").innerText = data.name;
-            document.querySelector("#p-email").innerText = data.email;
-            document.querySelector("#p-city").innerText = data.address.city;
-          })
-          .catch((error) => {
-            document.querySelector("#p-error").innterText = error;
-          });
-      }
-      */
         const URL = "https://jsonplaceholder.typicode.com/users/"
         const getBtn = document.querySelector("#btn-get-user")
         getBtn.onclick = fetchUser
